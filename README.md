@@ -321,10 +321,22 @@ This launches three containers:
 | Service | URL | Purpose |
 |---------|-----|---------|
 | API | [localhost:5001](http://localhost:5001) | .NET 9 Web API (redirects to Swagger) |
-| PostgreSQL | localhost:5432 | Database |
+| PostgreSQL | internal only | Database (no external port exposed) |
 | pgAdmin | [localhost:5050](http://localhost:5050) | Database management (email: `admin@bonussystem.com`, password: `admin`) |
 
 > **Note:** This is an API-only project. There is no web frontend. Use Swagger UI or tools like Postman/Insomnia to interact with endpoints.
+
+#### Why PostgreSQL Has No Exposed Port
+
+The `docker-compose.yml` deliberately omits a `ports:` mapping for PostgreSQL. The database is reachable only through the internal Docker `backend` network — the API and pgAdmin connect via the service name `postgres` on port 5432, but nothing on the host machine can reach it directly.
+
+This is a security best practice: databases should never be accessible from outside the application network. Exposing port 5432 to `localhost` (or worse, `0.0.0.0`) means any process on the host — or any attacker who gains host access — can attempt direct connections, bypassing the API's authentication and authorisation layer entirely. By keeping the database network-internal, the only path to data is through the API, where JWT authentication, role-based permissions, and BFF service validation are enforced.
+
+If you need direct database access for development, use pgAdmin (which runs inside the same Docker network) or exec into the container:
+
+```bash
+docker exec -it bonussystem-postgres psql -U postgres -d bonussystem
+```
 
 ### Demo Accounts
 
@@ -376,11 +388,11 @@ dotnet ef database update --startup-project ../BonusSystem.Api
 
 All ports are configured in `.env`:
 
-| Service | Default Port | Variable |
-|---------|-------------|----------|
-| API | 5001 | `API_HTTP_PORT` |
-| PostgreSQL | 5432 | `POSTGRES_PORT` |
-| pgAdmin | 5050 | `PGADMIN_PORT` |
+| Service | Default Port | Variable | Exposure |
+|---------|-------------|----------|----------|
+| API | 5001 | `API_HTTP_PORT` | Host |
+| PostgreSQL | 5432 | — | Internal network only |
+| pgAdmin | 5050 | `PGADMIN_PORT` | Host |
 
 ---
 
