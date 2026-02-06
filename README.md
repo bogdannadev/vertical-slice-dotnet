@@ -21,11 +21,11 @@ Traditional N-Tier (horizontal slicing)
 ────────────────────────────────────────
 
   ┌─────────────────────────────────────────────┐
-  │            Controller Layer                  │  ← modify UserController
+  │            Controller Layer                 │  ← modify UserController
   ├─────────────────────────────────────────────┤
-  │            Service Layer                     │  ← modify UserService
+  │            Service Layer                    │  ← modify UserService
   ├─────────────────────────────────────────────┤
-  │            Repository Layer                  │  ← modify UserRepository
+  │            Repository Layer                 │  ← modify UserRepository
   └─────────────────────────────────────────────┘
 
   Problem: a buyer-only feature ripples through layers
@@ -51,12 +51,12 @@ Vertical Slice Architecture
   │ Requests │  │ Requests │  │ Requests │  │ Requests │
   │ Responses│  │ Responses│  │ Responses│  │ Responses│
   └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘
-       │              │              │              │
-       └──────────────┴──────┬───────┴──────────────┘
-                             │
+       │             │             │             │
+       └─────────────┴──────┬──────┴─────────────┘
+                            │
                     Shared Repository
                       Contracts Only
-                             │
+                            │
                         PostgreSQL
 ```
 
@@ -119,31 +119,31 @@ This isn't a toy CRUD app. The domain includes approval workflows, quarterly exp
                                ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                    API Layer (Features/)                        │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐             │
-│  │   Admin/    │  │   Buyers/   │  │  Sellers/   │  ...        │
-│  │  Endpoints  │  │  Endpoints  │  │  Endpoints  │             │
-│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘             │
-└─────────┼────────────────┼────────────────┼────────────────────┘
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐              │
+│  │   Admin/    │  │   Buyers/   │  │  Sellers/   │  ...         │
+│  │  Endpoints  │  │  Endpoints  │  │  Endpoints  │              │
+│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘              │
+└─────────┼────────────────┼────────────────┼─────────────────────┘
           │                │                │
           ▼                ▼                ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                    BFF Layer (Services/BFF/)                    │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
-│  │   AdminBff   │  │   BuyerBff   │  │  SellerBff   │  ...     │
-│  │   Service    │  │   Service    │  │   Service    │          │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘          │
-└─────────┼─────────────────┼─────────────────┼──────────────────┘
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐           │
+│  │   AdminBff   │  │   BuyerBff   │  │  SellerBff   │  ...      │
+│  │   Service    │  │   Service    │  │   Service    │           │
+│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘           │
+└─────────┼─────────────────┼─────────────────┼───────────────────┘
           │                 │                 │
           └─────────────────┼─────────────────┘
                             │
                             ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │              Repository Layer (Infrastructure/)                 │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌───────────┐ │
-│  │   User     │  │  Company   │  │   Store    │  │Transaction│ │
-│  │ Repository │  │ Repository │  │ Repository │  │Repository │ │
-│  └──────┬─────┘  └──────┬─────┘  └──────┬─────┘  └─────┬─────┘ │
-└─────────┼───────────────┼───────────────┼──────────────┼───────┘
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌───────────┐  │
+│  │   User     │  │  Company   │  │   Store    │  │Transaction│  │
+│  │ Repository │  │ Repository │  │ Repository │  │Repository │  │
+│  └──────┬─────┘  └──────┬─────┘  └──────┬─────┘  └─────┬─────┘  │
+└─────────┼───────────────┼───────────────┼──────────────┼────────┘
           └───────────────┴───────────────┴──────────────┘
                                   │
                                   ▼
