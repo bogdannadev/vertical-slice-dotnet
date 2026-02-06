@@ -17,8 +17,7 @@
 # - Notification Type: 0=System, 1=Transaction, 2=Balance, 3=Promotion, 4=Warning
 
 # Base Configuration
-@baseUrl = https://localhost:5002
-#@baseUrl = http://62.113.59.109:5001
+@baseUrl = http://localhost:5001
 
 # Authentication Tokens (to be updated after login)
 @buyerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2NjY2NjY2Ni02NjY2LTY2NjYtNjY2Ni02NjY2NjY2NjY2NjYiLCJyb2xlIjoiQnV5ZXIiLCJuYmYiOjE3NDQ5NzUwMzMsImV4cCI6MTc3NjUxMTAzMywiaWF0IjoxNzQ0OTc1MDMzfQ.uViPRwdn4dR5Z-rd46yzrveKRgEdbQ_JS975bJHryC8
