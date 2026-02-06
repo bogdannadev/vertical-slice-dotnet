@@ -509,7 +509,7 @@ Task<IEnumerable<TransactionDto>> GetTransactionsByCompanyIdAsync(Guid companyId
 ## Further Reading
 
 - [Jimmy Bogard — Vertical Slice Architecture](https://www.jimmybogard.com/vertical-slice-architecture/) — the original articulation of the pattern
-- [CQRS and Vertical Slices](https://www.jimmybogard.com/cqrs-and-mediator-patterns/) — how CQRS complements VSA
+- [CQRS and Vertical Slices](https://www.architecture-weekly.com/p/my-thoughts-on-vertical-slices-cqrs) — how CQRS complements VSA
 - [Feature Folders in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/areas) — Microsoft's take on feature-based organisation
 - [eShop Reference Application](https://github.com/dotnet/eShop) — Microsoft's microservices reference (different pattern, useful comparison)
 
