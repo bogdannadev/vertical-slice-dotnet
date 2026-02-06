@@ -311,7 +311,7 @@ All buyer bonus points expire quarterly. The system creates `TransactionType.Exp
 
 ```bash
 # Clone and start
-git clone https://github.com/danila-permogorskii/bonus-system.git
+git clone https://github.com/bogdannadev/vertical-slice-dotnet.git
 cd bonus-system
 docker-compose up -d
 ```
